@@ -1,17 +1,12 @@
 package io.compgen.mhscan.cli;
 
+import java.io.IOException;
+
 import io.compgen.cmdline.annotation.Command;
 import io.compgen.cmdline.annotation.Exec;
 import io.compgen.cmdline.annotation.Option;
-import io.compgen.cmdline.annotation.UnnamedArg;
 import io.compgen.cmdline.exceptions.CommandArgumentException;
 import io.compgen.cmdline.impl.AbstractOutputCommand;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 @Command(name="scan", desc="Calculate the level of microhomology for indels (from VCF)", category="mhscan")
 public class Scan extends AbstractOutputCommand {
@@ -35,11 +30,11 @@ public class Scan extends AbstractOutputCommand {
 
 	@Exec
 	public void exec() throws CommandArgumentException, IOException {
-    if (genomeFname == null) { 
-        throw new CommandArgumentException("Missing --ref argument!");
-    }
-    if (vcfFname == null) { 
-        throw new CommandArgumentException("Missing --vcf argument!");
-    }
- }
+	    if (genomeFname == null) { 
+	        throw new CommandArgumentException("Missing --ref argument!");
+	    }
+	    if (vcfFname == null) { 
+	        throw new CommandArgumentException("Missing --vcf argument!");
+	    }
+	}
 }
