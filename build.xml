@@ -50,8 +50,8 @@
             <manifest>
                 <attribute name="Main-Class" value="io.compgen.mhscan.MHScan"/>
             </manifest>
-            <zipfileset src="${lib.dir}/compgen-common-0.2.jar"/>
-            <zipfileset src="${lib.dir}/compgen-cmdline-0.4.1.jar"/>
+            <zipfileset src="${lib.dir}/compgen-common-0.4.2.jar"/>
+            <zipfileset src="${lib.dir}/compgen-cmdline-0.4.4.jar"/>
             <zipfileset src="${lib.dir}/ngsutilsj-0.4.6.jar"/>
             <zipfileset src="${lib.dir}/htsjdk-1.126.jar"/>
 	        <fileset dir="${build.dir}/classes"/>
