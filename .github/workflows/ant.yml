@@ -17,4 +17,6 @@ jobs:
       run: ant -noinput -buildfile build.xml
     - name:  Github Create Release
       uses: frankjuniorr/github-create-release-action@v2.1.1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
