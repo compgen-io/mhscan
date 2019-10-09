@@ -4,11 +4,11 @@ if [ "$?" -gt 0 ]; then
 	MYSELF="./$0"
 fi
 
-if [ -e $(dirname $0)/.mhscanrc ]; then
-    . $(dirname $0)/.mhscanrc
+if [ -e $(dirname $0)/.mhsigrc ]; then
+    . $(dirname $0)/.mhsigrc
 fi
-if [ -e $HOME/.mhscanrc ]; then
-    . $HOME/.mhscanrc
+if [ -e $HOME/.mhsigrc ]; then
+    . $HOME/.mhsigrc
 fi
 
 if [ ! -t 0 ]; then 

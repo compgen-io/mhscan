@@ -1,4 +1,4 @@
-mhscan
+mhsig
 ====
 
 Micro-homology scanner for somatic sequencing data. Looks for microhomology at indel sites in WGS data.
