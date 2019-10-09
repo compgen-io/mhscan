@@ -16,13 +16,12 @@ jobs:
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml
     - name: Release
-        uses: softprops/action-gh-release@v1
-        #        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          prerelease: true
-          files: |
-            dist/mhsig
-            dist/mhsig*jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
+      with:
+        prerelease: true
+        files: |
+          dist/mhsig
+          dist/mhsig*jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
