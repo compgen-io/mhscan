@@ -9,6 +9,7 @@ The input files are:
 2) VCF file with INDELs to examine
 
 
+Currently tested with VCFs from Delly and GATK/MuTect
 
 (Maybe in the future this will also look at other SV events: INV, DUP, BND, etc...)
 
