@@ -15,13 +15,6 @@ jobs:
         java-version: 1.8
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        prerelease: true
-        files: |
-          dist/mhsig
-          dist/mhsig*jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name:  Github Create Release
+      uses: frankjuniorr/github-create-release-action@v2.1.1
 
