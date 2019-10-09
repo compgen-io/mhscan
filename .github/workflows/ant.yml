@@ -23,7 +23,3 @@ jobs:
           dist/mhsig*jar
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Debug1
-      run: echo "github.workflow => ${{ github.workflow }}"
-    - name: Debug2
-      run: echo "github.ref => ${{ github.ref }}"
