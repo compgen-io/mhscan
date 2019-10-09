@@ -1,4 +1,4 @@
-<project name="mhscan" default="jar">
+<project name="mhsig" default="jar">
     <property name="version" value="0.1"/>
     <property name="lib.dir" value="lib"/>
     <property name="blib.dir" value="blib"/>
@@ -40,19 +40,19 @@
 	<target name="jar" depends="compile, git.revision">
         <copy file="LICENSE" todir="${build.dir}/classes/"/>
         <copy file="INCLUDES" todir="${build.dir}/classes/"/>
-        <delete file="${build.dir}/classes/io/compgen/mhscan/VERSION"/>
- 		<echo file="${build.dir}/classes/io/compgen/mhscan/VERSION" message="${ant.project.name}-${version}-${repository.version}"/>
+        <delete file="${build.dir}/classes/io/compgen/mhsig/VERSION"/>
+ 		<echo file="${build.dir}/classes/io/compgen/mhsig/VERSION" message="${ant.project.name}-${version}-${repository.version}"/>
 
 		<mkdir dir="${dist.dir}"/>
 	    <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${blib.dir}/jarjar-1.4.jar"/>
         <jar destfile="${dist.dir}/${ant.project.name}-${version}.jar" basedir="${build.dir}/classes"/>
 	    <jarjar jarfile="${dist.dir}/${ant.project.name}.jar.tmp">
             <manifest>
-                <attribute name="Main-Class" value="io.compgen.mhscan.MHScan"/>
+                <attribute name="Main-Class" value="io.compgen.mhsig.MHSig"/>
             </manifest>
             <zipfileset src="${lib.dir}/compgen-common-0.4.2.jar"/>
             <zipfileset src="${lib.dir}/compgen-cmdline-0.4.4.jar"/>
-            <zipfileset src="${lib.dir}/ngsutilsj-0.4.6.jar"/>
+            <zipfileset src="${lib.dir}/ngsutilsj-0.4.8.jar"/>
             <zipfileset src="${lib.dir}/htsjdk-1.126.jar"/>
 	        <fileset dir="${build.dir}/classes"/>
 	    	<zap pattern="*.java"/>

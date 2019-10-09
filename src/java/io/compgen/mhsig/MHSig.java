@@ -1,17 +1,17 @@
-package io.compgen.mhscan;
+package io.compgen.mhsig;
 
-import io.compgen.mhscan.cli.Scan;
 import io.compgen.cmdline.Help;
 import io.compgen.cmdline.License;
 import io.compgen.cmdline.MainBuilder;
 import io.compgen.common.StringUtils;
+import io.compgen.mhsig.cli.SigCall;
 
 import java.io.IOException;
 
-public class MHScan {
+public class MHSig {
 	public static String getVersion() {
 		try {
-			return MainBuilder.readFile("io/compgen/mhscan/VERSION");
+			return MainBuilder.readFile("io/compgen/mhsig/VERSION");
 		} catch (IOException e1) {
 			return "unknown";
 		}
@@ -24,15 +24,15 @@ public class MHScan {
 	}
 
 	public static void main(String[] args) throws Exception {
-	    MHScan.args = StringUtils.join(" ", args);
+	    MHSig.args = StringUtils.join(" ", args);
 		new MainBuilder()
-		.setProgName("mhscan")
-		.setHelpHeader("mhscan - Micro-homology scanner\n---------------------------------------")
-		.setDefaultUsage("Usage: mhscan cmd [options]")
-		.setHelpFooter("http://compgen.io/mhscan\n"+getVersion())
+		.setProgName("mhsig")
+		.setHelpHeader("mhsig - Micro-homology signature caller\n---------------------------------------")
+		.setDefaultUsage("Usage: mhsig cmd [options]")
+		.setHelpFooter("http://compgen.io/mhsig\n"+getVersion())
 		.addCommand(Help.class)
 		.addCommand(License.class)
-		.addCommand(Scan.class)
+		.addCommand(SigCall.class)
 		.findAndRun(args);
 	}
 		
