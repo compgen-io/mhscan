@@ -97,7 +97,7 @@ public class SigCall extends AbstractOutputCommand {
 			System.out.println("#min-length: " + minLength);
 		}
 		
-		System.out.println("chrom\tstart\tend\ttype\tref\talt\tlength\tleft_matches\tright_matches\tleft_seq\tright_seq\tindel_seq1\tindel_seq2");
+		System.out.println("chrom\tstart\tend\ttype\tref\talt\tlength\tleft_matches\tright_matches\tleft_match\tright_match\tleft_seq\tright_seq\tindel_seq1\tindel_seq2");
 		
 		Set<String> invalidAlts = new HashSet<String>();
 		invalidAlts.add("<INV>");
@@ -124,20 +124,17 @@ public class SigCall extends AbstractOutputCommand {
 				e.printStackTrace();
 			}
 			
-			
-			String ref = rec.getRef();
-
-			
+			String ref = rec.getRef();			
 			int pos = rec.getPos();
 			int end = pos;
 			
 			if (endKey != null && rec.getInfo().contains(endKey)) {
-				end = rec.getInfo().get(endKey).asInt();
+				end = rec.getInfo().get(endKey).asInt() - 1; // these are offset by 1 in Delly...
 			}
 			
 			int delLen = end - pos;
 			
-			if (rec.getRef().length()>1 || delLen > 1) {
+			if (rec.getRef().length()>1 || delLen > 0) {
 				// this is a deletion
 				
 				String delLeft="";
@@ -232,8 +229,11 @@ public class SigCall extends AbstractOutputCommand {
 				// For the left flank, compare the end chars of the leftFlank and delRight.
 
 				int leftMatch = 0;
+				String leftMatchSeq = "";
+				
 				for (int i=1; i <= delRight.length(); i++) {
 					if (leftFlank.charAt(leftFlank.length()-i) == delRight.charAt(delRight.length()-i)) {
+						leftMatchSeq = leftFlank.charAt(leftFlank.length()-i) + leftMatchSeq;
 						leftMatch ++;
 					} else {
 						break;
@@ -242,15 +242,18 @@ public class SigCall extends AbstractOutputCommand {
 				
 				// For the right flank, compare the start chars of the rightFlank and delLeft.
 				int rightMatch = 0;
+				String rightMatchSeq = "";
+
 				for (int i=0; i < delLeft.length(); i++) {
 					if (rightFlank.charAt(i) == delLeft.charAt(i)) {
+						rightMatchSeq += rightFlank.charAt(i);
 						rightMatch ++;
 					} else {
 						break;
 					}
 				}
 				
-				System.out.println(rec.getChrom()+"\t"+rec.getPos()+"\t"+(rec.getPos()+delLen) + "\tDEL\t" + rec.getRef() + "\t" + rec.getAlt().get(0) + "\t" + delLen + "\t" + leftMatch+"\t" + rightMatch + "\t" + leftFlank + "\t" + rightFlank + "\t" + delLeft + "\t" + delRight);
+				System.out.println(rec.getChrom()+"\t"+rec.getPos()+"\t"+(rec.getPos()+delLen) + "\tDEL\t" + rec.getRef() + "\t" + rec.getAlt().get(0) + "\t" + delLen + "\t" + leftMatch+"\t" + rightMatch + "\t" + leftMatchSeq +"\t" + rightMatchSeq + "\t" + leftFlank + "\t" + rightFlank + "\t" + delLeft + "\t" + delRight);
 				
 			} else if (alt.length() > 1) {
 			
@@ -269,9 +272,11 @@ public class SigCall extends AbstractOutputCommand {
 				String right = fasta.fetchSequence(rec.getChrom(), rec.getPos(), rec.getPos()+ins.length());
 
 				int leftMatch = 0;
+				String leftMatchSeq = "";
 				
 				for (int i=1; i <= ins.length(); i++) {
 					if (left.charAt(left.length()-i) == ins.charAt(ins.length()-i)) {
+						leftMatchSeq = left.charAt(left.length()-i) + leftMatchSeq;
 						leftMatch ++;
 					} else {
 						break;
@@ -279,16 +284,18 @@ public class SigCall extends AbstractOutputCommand {
 				}
 				
 				int rightMatch = 0;
-				
+				String rightMatchSeq = "";
+
 				for (int i=0; i < ins.length(); i++) {
 					if (right.charAt(i) == ins.charAt(i)) {
+						rightMatchSeq += right.charAt(i);
 						rightMatch ++;
 					} else {
 						break;
 					}
 				}
 				
-				System.out.println(rec.getChrom()+"\t"+rec.getPos()+"\t"+rec.getPos() + "\tINS\t" + rec.getRef() + "\t" + rec.getAlt().get(0) + "\t" + ins.length() + "\t" + leftMatch+"\t" + rightMatch + "\t" + left + "\t" + right + "\t" + ins);
+				System.out.println(rec.getChrom()+"\t"+rec.getPos()+"\t"+rec.getPos() + "\tINS\t" + rec.getRef() + "\t" + rec.getAlt().get(0) + "\t" + ins.length() + "\t" + leftMatch+"\t" + rightMatch + "\t" + leftMatchSeq +"\t" + rightMatchSeq + "\t" + left + "\t" + right + "\t" + ins);
 				
 			}
 		}		
